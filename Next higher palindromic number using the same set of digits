@@ -1,7 +1,10 @@
 Complexity:
+
   Time-O(n)-->complexity of next_permutation method
   Space-O(1)
+  
 Explanation:
+
   next_permutation method produces the next lexicographically greater permutation of the given input if possible.
   If lexicographcally greater input is not possible the function returns false else it returns true.
   So we use that function in the first half of the palindrome string(excluding the middle character in case of odd string),
@@ -10,6 +13,7 @@ Explanation:
   method and that to the final answer.In case next_permutation returns false,next greater permutation is not possible and we return -1.
   
 Example:
+
   1)Even string
     12344321
     first half=1234
