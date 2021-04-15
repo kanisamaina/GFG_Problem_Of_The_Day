@@ -42,6 +42,7 @@ Code(C++):
 class Solution{
     public:
     string nextPalin(string num) { 
+    
         //complete the function here
     
         if(num.size()<=3)
@@ -80,30 +81,15 @@ class Solution{
             while (j >= 0 && nums[j] <= nums[i]) {
                 j--;
             }
-            swap(nums, i, j);
+            swap(nums[i],nums[j]);
         }
-        reverse(nums, i + 1);
+        reverse(nums.begin()+i+1,nums.end());
     }
 
-    void reverse(string& nums, int start) {
-        int i = start, j = nums.length() - 1;
-        while (i < j) {
-            swap(nums, i, j);
-            i++;
-            j--;
-        }
-    }
-
-    void swap(string& nums, int i, int j) {
-        int temp = nums[i];
-        nums[i] = nums[j];
-        nums[j] = temp;
-    }
+    
     string nextPalin(string num) { 
+    
         //complete the function here
-        
-        //Time-O(n)-->complexity of next_permutation method
-        //Space-O(1)
         
         if(num.size()<=3)
             return "-1";
@@ -112,16 +98,18 @@ class Solution{
         string first=num.substr(0,mid+1);
         string ans="",k=first;
         nextPermutation(first);
-        //cout<<first<<endl;
+        
         if(first<=k)
             return "-1";
         ans+=first;    
         if(num.size()%2)
             ans+=num[num.size()/2];
         
-        reverse(first,0);
+        reverse(first.begin(),first.end());
         ans+=first;
         
         return ans;
 
     }
+
+};
