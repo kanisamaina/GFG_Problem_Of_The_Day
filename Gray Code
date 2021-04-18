@@ -1,0 +1,26 @@
+
+Complexity:
+  Time-O(2^n)
+  Space-O(n)
+  
+Code(C++):
+
+class Solution
+{
+    public:
+    vector<string> graycode(int n)
+    {
+        //code here
+        vector<string> ans;
+        
+        for(int i=0;i<(1<<n);i++)
+        {
+            
+            bitset<32> k(i^(i>>1));
+            string s=k.to_string();
+            ans.push_back(s.substr(32-n));
+        }
+        
+        return ans;
+    }
+};
