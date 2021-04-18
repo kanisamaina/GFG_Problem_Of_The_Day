@@ -1,0 +1,64 @@
+
+Complexity:
+  Time-O(nlogn)
+  Space-O(n)
+
+Code(C++):
+
+class Solution{
+  public:
+    //Function to sort the given linked list using Merge Sort.
+    Node* merge(Node* a,Node* b)
+    {
+        Node* p=new Node(0);
+        Node* temp=p;
+        while(a!=NULL && b!=NULL)
+        {
+            if(a->data<=b->data){
+                temp->next=a;
+                a=a->next;
+            }
+            else{
+                temp->next=b;
+                b=b->next;
+            }
+            temp=temp->next;
+        }
+        while(a!=NULL)
+        {
+            temp->next=a;
+            a=a->next;
+            temp=temp->next;
+        }
+        while(b!=NULL)
+        {
+            temp->next=b;
+            b=b->next;
+            temp=temp->next;
+        }
+        return p->next;
+    }
+    Node* findMid(Node* head)
+    {
+        Node *slow=head,*fast=head->next;
+        while(fast!=NULL && fast->next!=NULL)
+        {
+            slow=slow->next;
+            fast=fast->next->next;
+        }
+        return slow;
+    }
+    Node* mergeSort(Node* head) {
+        // your code here
+        if(head==NULL || head->next==NULL)
+            return head;
+            
+        Node* a=findMid(head);
+        Node* b=a->next;
+        a->next=NULL;
+        Node* a1=mergeSort(head);
+        Node* b1=mergeSort(b);
+        
+        return merge(a1,b1);
+    }
+};
