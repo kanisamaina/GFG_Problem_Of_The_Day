@@ -1,0 +1,62 @@
+Complexity:
+
+  Time-O(nlogn)
+  Space-O(n)
+  
+  
+Code(C++):
+
+// Function to find inversion count in the array
+// arr[]: Input Array
+// N : Size of the Array arr[]
+long long int merge(long long arr[],int s,int mid,int e)
+{
+    int l=s,r=mid+1,j=0;
+    long long count=0;
+    long long temp[e-s+1];
+    
+    while(l<=mid && r<=e)
+    {
+        if(arr[l]<=arr[r])
+        {
+            temp[j++]=arr[l];
+            l++;
+        }
+        else
+        {
+            count+=mid-l+1;
+            temp[j++]=arr[r];
+            r++;
+        }
+    }
+    while(l<=mid)
+    {
+        temp[j++]=arr[l];
+        l++;
+    }
+    while(r<=e)
+    {
+        temp[j++]=arr[r];
+        r++;
+    }
+    j=0;
+    for(int i=s;i<=e;i++)
+        arr[i]=temp[j++];
+        
+    return count;
+}
+long long int mergesort(long long arr[],int s,int e)
+{
+    if(s>=e)
+        return 0;
+    long long int mid=s+(e-s)/2;
+    long long int x=mergesort(arr,s,mid);
+    long long int y=mergesort(arr,mid+1,e);
+    long long int z=merge(arr,s,mid,e);
+    
+    return x+y+z;
+}
+long long int inversionCount(long long arr[], long long n)
+{
+    return mergesort(arr,0,n-1);
+}
