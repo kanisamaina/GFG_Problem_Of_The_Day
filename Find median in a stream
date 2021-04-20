@@ -1,0 +1,44 @@
+
+Complexity:
+  Time-O(nlogn)-->logn for every insertion in priority_queue
+  Space-O(n)
+
+
+Code(C++):
+
+class Solution
+{
+    priority_queue<int> max_heap;
+    priority_queue<int,vector<int>,greater<int>> min_heap;
+    public:
+    //Function to insert heap.
+    void insertHeap(int &x)
+    {
+        max_heap.push(x);
+        min_heap.push(max_heap.top());
+        max_heap.pop();
+        balanceHeaps();
+        
+    }
+    
+    //Function to balance heaps.
+    void balanceHeaps()
+    {
+        if(min_heap.size()>max_heap.size())
+        {
+            max_heap.push(min_heap.top());
+            min_heap.pop();
+        }
+       
+    }
+    
+    //Function to return Median.
+    double getMedian()
+    {
+        if(min_heap.size()<max_heap.size())
+            return max_heap.top();
+        else
+            return ((double)max_heap.top()+(double)min_heap.top())*0.5;
+        
+    }
+};
