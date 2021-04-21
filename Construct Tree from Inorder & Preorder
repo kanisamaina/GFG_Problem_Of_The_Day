@@ -1,0 +1,43 @@
+Complexity:
+  Time-O(n^2)
+  Space-O(n)
+  
+Code(C++):
+
+class Solution{
+    public:
+    Node* buildTree(int in[],int pre[], int n)
+    {
+        // Code here
+       int i=0;
+        return build(in,pre,0,n-1,n,i);
+    }
+    Node* build(int in[],int pre[],int s,int e,int n,int& i)
+    {
+        if(n<=i)
+            return NULL;
+        
+        if(s>e)
+        {
+            i--;
+            return NULL;
+        }
+        
+        Node* head=new Node(pre[i]);
+        
+        int j;
+        for(j=s;j<=e;j++)
+        {
+            if(pre[i]==in[j])
+                break;
+        }
+        
+        
+        i++;
+        head->left=build(in,pre,s,j-1,n,i);
+        i++;
+        head->right=build(in,pre,j+1,e,n,i);
+        
+        return head;
+    }
+};
