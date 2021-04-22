@@ -1,0 +1,30 @@
+
+Complexity:
+  Time-O(n)
+  Space-O(n)
+  
+Code(C++):
+
+  class Solution{
+  public:
+    // root : the root Node of the given BST
+    // target : the target sum
+    int isPairPresent(struct Node *root, int target)
+    {
+    //add code here.
+        unordered_set<int> lookup;
+        return present(root,target,lookup);
+    }
+    bool present(Node* root,int target,unordered_set<int>& lookup)
+    {
+        if(root==NULL)
+            return false;
+            
+        if(lookup.find(target-root->data)!=lookup.end())
+            return true;
+        else
+            lookup.insert(root->data);
+            
+        return present(root->left,target,lookup)||present(root->right,target,lookup);
+    }
+};
