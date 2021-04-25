@@ -1,0 +1,43 @@
+
+Complexity:
+
+    Time-O(N)
+    Space-O(1)
+
+Code(C++):
+
+class Solution{
+    public:
+    int catchThieves(char arr[], int n, int k) 
+    {
+        int policeIndex=0,thiefIndex=0,count=0;
+        
+        while(policeIndex<n && thiefIndex<n)
+        {
+            while(policeIndex<n && arr[policeIndex]=='T')
+                policeIndex++;
+                
+            while(thiefIndex<n && arr[thiefIndex]=='P')
+                thiefIndex++;
+                
+            if(policeIndex>=n || thiefIndex>=n)
+                break;
+                
+            if(abs(policeIndex-thiefIndex)<=k)
+            {
+                count++;
+                policeIndex++;
+                thiefIndex++;
+            }
+            else{
+                if(policeIndex<thiefIndex)
+                    policeIndex++;
+                else
+                    thiefIndex++;
+            }
+        }
+        
+        return count;
+    }
+};
+
