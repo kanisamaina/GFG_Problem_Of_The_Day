@@ -1,0 +1,49 @@
+
+Complexity:
+
+       Time-O(n^k)
+       Space-O(n)
+
+Code(C++):
+
+class Solution
+{
+    public:
+    //Function to find the largest number after k swaps.
+    string findMaximumNum(string str, int k)
+    {
+       // code here.
+       string ans=str;
+       findMax(str,k,ans,0);
+       return ans;
+    }
+    void findMax(string str,int k,string& ans,int i)
+    {
+        if(k==0)
+            return;
+            
+        int max=str[i];
+        
+        for(int j=i+1;j<str.size();j++)
+            if(str[j]>max)
+                max=str[j];
+                
+        if(max!=str[i])
+            k--;
+            
+        for(int j=i;j<str.size();j++)
+        {
+            if(max==str[j])
+            {
+                swap(str[i],str[j]);
+                
+                if(str.compare(ans)>0)
+                    ans=str;
+                    
+                findMax(str,k,ans,i+1);
+                
+                swap(str[i],str[j]);
+            }
+        }
+    }
+};
