@@ -1,0 +1,36 @@
+
+Complexity:
+    
+     Time-O(2^n)
+     Space-O(n)
+
+Code(C++):
+
+class Solution{
+    public:
+    // You need to complete this function
+
+    // avoid space at the starting of the string in "move disk....."
+    long long toh(int N, int from, int to, int aux) {
+
+        // Your code here
+        int moves=0;
+        TOH(from,to,aux,N,moves);
+        return moves;
+    }
+    void TOH(int from,int to,int aux,int N,int& moves)
+    {
+        if(N==1)
+        {
+            cout<<"move disk 1 from rod "<<from<<" to rod "<<to<<endl;
+            moves++;
+            return;
+        }
+        
+        TOH(from,aux,to,N-1,moves);
+        cout<<"move disk "<<N<<" from rod "<<from<<" to rod "<<to<<endl;
+        moves++;
+        TOH(aux,to,from,N-1,moves);
+        
+    }
+};
