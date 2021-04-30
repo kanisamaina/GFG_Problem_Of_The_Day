@@ -1,0 +1,38 @@
+
+Complexity:
+
+    Time-O(log(base 3)n)
+    Space-O(1)
+    
+Code(C++):
+
+class Solution{
+    public:
+    // Function to find element in sorted array
+    // arr: input array
+    // N: size of array
+    // K: element to be searche
+    int ternarySearch(int arr[], int N, int K) 
+    { 
+    
+       // Your code here
+       int first=0,last=N-1;
+       while(first<=last)
+       {
+           int midFirst=first+(last-first)/3;
+           int midSecond=midFirst+(last-first)/3;
+           if(arr[midFirst]==K || arr[midSecond]==K)
+                return 1;
+           if(K<arr[midFirst])
+                last=midFirst-1;
+            else if(K>arr[midSecond])
+                first=midSecond+1;
+            else
+            {
+                first=midFirst+1;
+                last=midSecond-1;
+            }
+       }
+       return -1;
+    }
+};
