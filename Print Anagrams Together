@@ -1,0 +1,29 @@
+
+Complexity:
+
+    Time-O(n*slogs)      //n is no of strings,s is length of each string
+    Space-O(n*s)
+
+
+Code(C++):
+
+vector<vector<string> > Anagrams(vector<string>& string_list) 
+{
+    // Your Code Here
+    
+    unordered_map<string,vector<string>> lookup;
+    vector<vector<string>> ans;
+    
+    for(string p:string_list)
+    {
+        string k=p;
+        sort(p.begin(),p.end());
+        lookup[p].push_back(k);
+    }
+    
+    for(auto k:lookup)
+    {
+        ans.push_back(k.second);
+    }
+    return ans;
+}
