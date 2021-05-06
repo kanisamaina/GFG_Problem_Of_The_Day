@@ -1,0 +1,84 @@
+
+Complexity:
+
+   Time-O(32*n)
+   Space-O(32*n)
+
+
+Code(C++):
+
+class node{
+  public:
+    node* left;//for 0
+    node* right;//for 1
+};
+
+class Solution
+{
+    public:
+    void insert(node* root,int k)
+    {
+        for(int i=31;i>=0;i--)
+        {
+            int bit=(k>>i)&1;
+            if(bit)
+            {
+                if(root->right==NULL)
+                {
+                    root->right=new node();
+                }
+                root=root->right;
+            }
+            else{
+                if(root->left==NULL)
+                {
+                    root->left=new node();
+                }
+                root=root->left;
+            }
+        }
+    }
+    int max_xor(int arr[] , int n)
+    {
+        //code here
+        
+        node* root=new node();
+        int maxPair=0;
+        for(int i=0;i<n;i++)
+        {
+            insert(root,arr[i]);
+            node* temp=root;
+            int curr_ans=0;
+            for(int j=31;j>=0;j--)
+            {
+                int curr_bit=(arr[i]>>j)&1;
+                if(curr_bit)
+                {
+                    if(temp->left!=NULL)
+                    {
+                        temp=temp->left;
+                        curr_ans+=(1<<j);
+                    }
+                    else{
+                        temp=temp->right;
+                    }
+                }
+                else{
+                    
+                    if(temp->right!=NULL)
+                    {
+                        temp=temp->right;
+                        curr_ans+=(1<<j);
+                    }
+                    else{
+                        temp=temp->left;
+                    }
+                    
+                }
+            }
+            maxPair=max(maxPair,curr_ans);
+        }
+        return maxPair;
+    }
+    
+};
