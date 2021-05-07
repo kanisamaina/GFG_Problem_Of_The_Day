@@ -1,0 +1,36 @@
+
+Complexity:
+
+  Time-O(2^n)
+  Space-O(2*n*size of ans)    //size of ans is the number of valid parenthesis each of size 2*n
+
+
+Code(C++):
+
+class Solution
+{
+    public:
+    vector<string> AllParenthesis(int n) 
+    {
+        // Your code goes here 
+        
+        vector<string> ans;
+        generate(n,0,0,"",ans);
+        return ans;
+    }
+    void generate(int n,int open,int close,string curr,vector<string>& ans)
+    {
+        if(curr.size()==n*2)
+        {
+            ans.push_back(curr);
+            return;
+        }
+        
+        if(open<n)
+            generate(n,open+1,close,curr+'(',ans);
+        
+        if(close<open)
+            generate(n,open,close+1,curr+')',ans);
+        
+    }
+};
