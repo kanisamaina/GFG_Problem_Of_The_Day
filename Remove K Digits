@@ -1,0 +1,40 @@
+
+Complexity:
+
+  Time-O(n)
+  Space-O(n)    //n is length of string
+
+Code(C++):
+
+
+class Solution{
+    public:
+    string removeKdigits(string S, int K) {
+        
+        stack<char> st;
+        
+        for(int i=0;i<S.size();i++)
+        {
+            while(!st.empty() && S[i]-'0'<st.top()-'0' && K){
+                st.pop();
+                K--;   
+            }
+                
+            if(!st.empty() || S[i]!='0')
+                st.push(S[i]);
+        }
+        
+        while(!st.empty() && K--)
+            st.pop();
+            
+        string ans="";
+        
+        while(!st.empty())
+        {
+            ans+=st.top();
+            st.pop();
+        }
+        reverse(ans.begin(),ans.end());
+        return ans.size()?ans:"0";
+    }
+};
