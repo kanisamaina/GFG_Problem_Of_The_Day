@@ -1,0 +1,42 @@
+
+Complexity:
+  
+    Time-O(n)
+    Space-O(n)
+
+Code(C++):
+
+class Solution {
+    public:
+    int minTime(Node* root, int target) 
+    {
+        // Your code goes here
+        
+        int mx=0;
+        calcTime(root,target,mx);
+        return mx;
+    }
+    int calcTime(Node* root,int target,int& mx)
+    {
+        if(!root)
+            return 0;
+        if(!root->left && !root->right && root->data==target)
+            return -1;
+            
+        int left=calcTime(root->left,target,mx);
+        int right=calcTime(root->right,target,mx);
+        
+        if(left<0)
+        {
+            mx=max(mx,-left+right);
+            return left-1;
+        }
+        if(right<0)
+        {
+            mx=max(mx,-right+left);
+            return right-1;
+        }
+        
+        return 1+max(left,right);
+    }
+};
