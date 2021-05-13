@@ -1,0 +1,61 @@
+
+
+
+Code(C++):
+
+class Solution {
+public:
+    int wordLadderLength(string startWord, string targetWord, vector<string>& wordList) {
+        // Code here
+        if(find(wordList.begin(),wordList.end(),targetWord)==wordList.end())
+            return 0;
+        
+        if(startWord==targetWord)
+            return 0;
+        
+        unordered_set<string> start,last,words(wordList.begin(),wordList.end());
+        
+        start.insert(startWord);
+        last.insert(targetWord);
+        int ans=0;
+        
+        while(!start.empty())
+        {
+            ans++;
+            unordered_set<string> temp;
+            
+            if(start.size()>last.size())
+                swap(start,last);
+                
+            for(string s:start)
+            {
+                
+                for(int k=0;k<s.size();k++){
+                
+                    
+                    for(char j='a';j<='z';j++)
+                    {
+                        string t=s;
+                        t[k]=j;
+                        
+                        if(last.find(t)!=last.end())
+                            return ans+1;
+                        
+                        if(words.find(t)==words.end())
+                            continue;
+                            
+                        if(start.find(t)!=start.end())
+                            continue;
+                            
+                        temp.insert(t);
+                        words.erase(t);
+                    }
+                }
+                
+            }
+            start=temp;
+        }
+        
+        return 0;
+    }
+};
