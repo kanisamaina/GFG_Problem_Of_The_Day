@@ -1,0 +1,68 @@
+
+Complexity:
+
+    Time-O(n*l)
+    Space-O(n*l+m)    //n is size of B,m is size of A,l is length of longest string in B
+
+Code(C++):
+
+class Trie{
+    Trie* children[26]={NULL};
+    bool isEnd=false;
+    
+    public:
+    
+    Trie(){
+        
+    }
+    
+    void insert(string k)
+    {
+        Trie* node=this;
+        
+        for(char c:k)
+        {
+            if(node->children[c-'a']==NULL)
+                node->children[c-'a']=new Trie();
+            node=node->children[c-'a'];
+        }
+        node->isEnd=true;
+    }
+    bool search(string k)
+    {
+        Trie* node=this;
+        
+        for(char c:k)
+        {
+            if(node->children[c-'a']==NULL)
+                return false;
+            node=node->children[c-'a'];
+        }
+        return node->isEnd;
+    }
+};
+class Solution{
+    public:
+    int wordBreakHelper(Trie* root,string k)
+    {
+        if(k=="")
+            return 1;
+            
+        for(int i=1;i<=k.size();i++)
+        {
+            if(root->search(k.substr(0,i)) && wordBreakHelper(root,k.substr(i,k.size()-i+1)))
+                return 1;
+        }
+        
+        return 0;
+    }
+    int wordBreak(string A, vector<string> &B) 
+    {
+                
+        Trie* root=new Trie();
+        for(int i=0;i<B.size();i++)
+            root->insert(B[i]);
+            
+        return wordBreakHelper(root,A);
+    }
+};
