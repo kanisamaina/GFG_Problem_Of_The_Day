@@ -1,0 +1,23 @@
+
+Complexity:
+
+    Time-O(log(base9)n)
+    Space-O(1)
+
+Code(C++):
+
+class Solution{
+	public:
+    	long long findNth(long long N)
+    {
+        // code here.
+        long long ans=0,dig=1;
+        while(N>0)
+        { 
+            ans+=(N%9*dig);
+            dig*=10;
+            N/=9;
+        }
+        return ans;
+    }
+};
