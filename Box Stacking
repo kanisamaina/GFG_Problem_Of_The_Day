@@ -1,0 +1,67 @@
+
+Complexity:
+
+  Time-O(n^2)
+  Space-O(n)
+
+Code(C++):
+
+class Solution{
+    public:
+    struct Box{
+        int l,w,h;
+    };
+    static bool cmp(Box a,Box b)
+    {
+        return (a.l*a.w)<(b.l*b.w);
+    }
+    /*The function takes an array of heights, width and 
+    length as its 3 arguments where each index i value 
+    determines the height, width, length of the ith box. 
+    Here n is the total no of boxes.*/
+    int maxHeight(int height[],int width[],int length[],int n)
+    {      
+        //Your code here
+        Box b[3*n];
+        int index=-1;
+        
+        for(int i=0;i<n;i++)
+        {
+            index++;
+            b[index].w=max(width[i],length[i]);
+            b[index].l=min(width[i],length[i]);
+            b[index].h=height[i];
+            
+            index++;
+            b[index].w=max(height[i],length[i]);
+            b[index].l=min(height[i],length[i]);
+            b[index].h=width[i];
+            
+            index++;
+            b[index].w=max(width[i],height[i]);
+            b[index].l=min(width[i],height[i]);
+            b[index].h=length[i];
+        }
+        
+        sort(b,b+(3*n),cmp);
+        
+        vector<int> value(3*n,0);
+        int maxHeight=0;
+        
+        for(int i=0;i<3*n;i++)
+            value[i]=b[i].h;
+            
+        for(int i=0;i<3*n;i++)
+        {
+            for(int j=0;j<i;j++)
+            {
+                if(b[i].l>b[j].l && b[i].w>b[j].w && value[i]<value[j]+b[i].h)
+                    value[i]=value[j]+b[i].h;
+                    
+            }
+            maxHeight=max(maxHeight,value[i]);
+        }
+        
+        return maxHeight;
+    }
+};
