@@ -1,0 +1,26 @@
+
+Complexity:
+
+    Time-O(m+n)
+    Space-O(100001)-O(1)
+    
+    
+Code(C++):
+
+class Solution{
+    public:
+    //Function to return the count of the number of elements in
+    //the intersection of two arrays.
+    int NumberofElementsInIntersection (int a[], int b[], int n, int m )
+    {
+        // Your code goes here
+        
+        bitset<100001> a1,b1;
+        for(int i=0;i<n;i++)
+            a1[a[i]]=1;
+        for(int i=0;i<m;i++)
+            b1[b[i]]=1;
+        a1=a1&b1;
+        return a1.count();
+    }
+};
