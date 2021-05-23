@@ -1,0 +1,39 @@
+
+ Complexity:
+ 
+    Time-O(nlogm)  //m is the maximum element in the array,n is the size of given array
+    Space-O(1)
+ 
+
+Code(C++):
+
+class Solution
+{
+    public:
+    int countPairs(int pattern,int arr[],int n)
+    {
+        int t=0;
+        for(int i=0;i<n;i++)
+        {
+            if((pattern&arr[i])==pattern)
+                t++;
+        }
+        return t;
+    }
+    // Function for finding maximum AND value.
+    int maxAND (int arr[], int N)
+    {
+        // Your code here
+        
+        int res=0,count=0;
+        for(int bit=31;bit>=0;bit--)
+        {
+            count=0;
+            count+=countPairs(res|(1<<bit),arr,N);
+            
+            if(count>=2)
+                res|=(1<<bit);
+        }
+        return res;
+    }
+};
