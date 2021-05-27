@@ -1,0 +1,34 @@
+
+Complexity:
+
+    Time-O(n)
+    Space-O(n)
+
+Code(C++):
+
+class Solution
+{
+    public:
+    int sum(Node* root)
+    {
+        if(root==NULL)
+            return 0;
+            
+        if(root->left==NULL && root->right==NULL)
+            return root->data;
+            
+        if((sum(root->left)+sum(root->right))==root->data)
+            return 2*root->data;
+            
+        return 0;
+    }
+    bool isSumTree(Node* root)
+    {
+         // Your code here
+        
+        if(root==NULL)
+            return 1;
+        
+        return sum(root);
+    }
+};
