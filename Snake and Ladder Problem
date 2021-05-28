@@ -1,0 +1,50 @@
+
+Complexity:
+
+    Time-O(n)
+    Space-O(n)
+
+Code(C++):
+
+class Solution{
+public:
+    int minThrow(int N, int arr[]){
+        // code here
+        
+        vector<int> moves(31,0);
+        
+        for(int i=0;i<2*N;i+=2)
+            moves[arr[i]]=arr[i+1];
+            
+        vector<int> dist(31,INT_MAX);
+        queue<pair<int,int>> q;
+        q.push({0,1});//{dist,position}
+        
+        while(!q.empty())
+        {
+            auto t=q.front();
+            q.pop();
+            int d=t.first,p=t.second;
+            
+            
+            for(int i=1;i<=6;i++)
+            {
+                
+                if(p+i<=30 && dist[p+i]>d+1)
+                {
+                    if(moves[p+i]!=0 && dist[moves[p+i]]>d+1){
+                        dist[moves[p+i]]=d+1;
+                        q.push({d+1,moves[p+i]});
+                    }
+                    if(dist[p+i]>d+1){
+                        dist[p+i]=d+1;
+                        q.push({d+1,p+i});
+                    }
+                }
+            }
+            
+        }
+        
+        return dist[30];
+    }
+};
